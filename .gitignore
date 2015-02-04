@@ -1,0 +1,5 @@
+venv
+*.pyc
+schema.json
+schema.md
+schema.html

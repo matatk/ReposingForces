@@ -1,0 +1,9 @@
+{
+  "description": "Where does this show up?",
+  "id": "tweetalt",
+  "links": [{
+    "href": "https://tweetalt.herokuapp.com",
+    "rel": "self"
+  }],
+  "title": "TweetAlt API"
+}
