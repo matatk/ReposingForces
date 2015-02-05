@@ -1,9 +1,9 @@
 {
-  "description": "Where does this show up?",
-  "id": "tweetalt",
+  "description": "The ReposingForces API -- FIXME: where does this show up?",
+  "id": "reposingforces",
   "links": [{
-    "href": "https://tweetalt.herokuapp.com",
+    "href": "https://reposingforces.herokuapp.com",
     "rel": "self"
   }],
-  "title": "TweetAlt API"
+  "title": "ReposingForces API"
 }
