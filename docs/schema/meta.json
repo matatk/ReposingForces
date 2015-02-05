@@ -1,9 +1,9 @@
 {
-  "description": "The ReposingForces API -- FIXME: where does this show up?",
-  "id": "reposingforces",
-  "links": [{
-    "href": "https://reposingforces.herokuapp.com",
-    "rel": "self"
-  }],
-  "title": "ReposingForces API"
+	"description": "The ReposingForces API -- FIXME: where does this show up?",
+	"id": "reposingforces",
+	"links": [{
+		"href": "https://reposingforces.herokuapp.com",
+		"rel": "self"
+	}],
+	"title": "ReposingForces API"
 }

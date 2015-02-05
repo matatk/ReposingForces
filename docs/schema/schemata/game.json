@@ -6,7 +6,7 @@
 	"strictProperties": true,
 	"type": [
 		"object"
-		],
+	],
 	"definitions": {
 		"id": {
 			"description": "unique identifier of game",
@@ -15,7 +15,7 @@
 			"format": "uuid",
 			"type": [
 				"string"
-				]
+			]
 		},
 		"player_one_name": {
 			"description": "player one's name",
@@ -23,7 +23,7 @@
 			"readOnly": true,
 			"type": [
 				"string"
-				]
+			]
 		},
 		"player_two_name": {
 			"description": "player two's name",
@@ -31,7 +31,7 @@
 			"readOnly": true,
 			"type": [
 				"string"
-				]
+			]
 		},
 		"game_rules": {
 			"description": "the rules in use",
@@ -39,7 +39,7 @@
 			"readOnly": true,
 			"type": [
 				"string"
-				]
+			]
 		},
 		"name": {
 			"description": "unique name of game",
@@ -47,16 +47,16 @@
 			"readOnly": true,
 			"type": [
 				"string"
-				]
+			]
 		},
 		"identity": {
 			"anyOf": [
-			{
-				"$ref": "/schemata/game#/definitions/id"
-			},
-			{
-				"$ref": "/schemata/game#/definitions/name"
-			}
+				{
+					"$ref": "/schemata/game#/definitions/id"
+				},
+				{
+					"$ref": "/schemata/game#/definitions/name"
+				}
 			]
 		},
 		"created_at": {
@@ -65,7 +65,7 @@
 			"format": "date-time",
 			"type": [
 				"string"
-				]
+			]
 		},
 		"updated_at": {
 			"description": "when game was updated",
@@ -73,97 +73,97 @@
 			"format": "date-time",
 			"type": [
 				"string"
-				]
+			]
 		}
 	},
 	"links": [
-	{
-		"description": "Create a new game.",
-		"href": "/games",
-		"method": "POST",
-		"rel": "create",
-		"schema": {
-			"properties": {
-				"name": {
-					"$ref": "/schemata/game#/definitions/name"
+		{
+			"description": "Create a new game.",
+			"href": "/games",
+			"method": "POST",
+			"rel": "create",
+			"schema": {
+				"properties": {
+					"name": {
+						"$ref": "/schemata/game#/definitions/name"
+					},
+					"game_rules": {
+						"$ref": "/schemata/game#/definitions/game_rules"
+					},
+					"player_one_name": {
+						"$ref": "/schemata/game#/definitions/player_one_name"
+					},
+					"player_two_name": {
+						"$ref": "/schemata/game#/definitions/player_two_name"
+					}
 				},
-				"game_rules": {
-					"$ref": "/schemata/game#/definitions/game_rules"
-				},
-				"player_one_name": {
-					"$ref": "/schemata/game#/definitions/player_one_name"
-				},
-				"player_two_name": {
-					"$ref": "/schemata/game#/definitions/player_two_name"
-				}
-			},
-			"type": [
-				"object"
+				"type": [
+					"object"
 				],
-			"required": [
-				"game_rules"
+				"required": [
+					"game_rules"
 				]
-		},
-		"title": "Create"
-	},
-	{
-		"description": "Delete an existing game.",
-		"href": "/games/{(%2Fschemata%2Fgame%23%2Fdefinitions%2Fidentity)}",
-		"method": "DELETE",
-		"rel": "destroy",
-		"title": "Delete"
-	},
-	{
-		"description": "Info for existing game.",
-		"href": "/games/{(%2Fschemata%2Fgame%23%2Fdefinitions%2Fidentity)}",
-		"method": "GET",
-		"rel": "self",
-		"title": "Info"
-	},
-	{
-		"description": "List existing games.",
-		"href": "/games",
-		"method": "GET",
-		"rel": "instances",
-		"title": "List"
-	},
-	{
-		"description": "Update an existing game.",
-		"href": "/games/{(%2Fschemata%2Fgame%23%2Fdefinitions%2Fidentity)}",
-		"method": "PATCH",
-		"rel": "update",
-		"schema": {
-			"properties": {
 			},
-			"type": [
-				"object"
-				]
+			"title": "Create"
 		},
-		"title": "Update"
-	}
+		{
+			"description": "Delete an existing game.",
+			"href": "/games/{(%2Fschemata%2Fgame%23%2Fdefinitions%2Fidentity)}",
+			"method": "DELETE",
+			"rel": "destroy",
+			"title": "Delete"
+		},
+		{
+			"description": "Info for existing game.",
+			"href": "/games/{(%2Fschemata%2Fgame%23%2Fdefinitions%2Fidentity)}",
+			"method": "GET",
+			"rel": "self",
+			"title": "Info"
+		},
+		{
+			"description": "List existing games.",
+			"href": "/games",
+			"method": "GET",
+			"rel": "instances",
+			"title": "List"
+		},
+		{
+			"description": "Update an existing game.",
+			"href": "/games/{(%2Fschemata%2Fgame%23%2Fdefinitions%2Fidentity)}",
+			"method": "PATCH",
+			"rel": "update",
+			"schema": {
+				"properties": {
+				},
+				"type": [
+					"object"
+				]
+			},
+			"title": "Update"
+		}
 	],
-		"properties": {
-			"created_at": {
-				"$ref": "/schemata/game#/definitions/created_at"
-			},
-			"id": {
-				"$ref": "/schemata/game#/definitions/id"
-			},
-			"name": {
-				"$ref": "/schemata/game#/definitions/name"
-			},
-			"game_rules": {
-				"$ref": "/schemata/game#/definitions/game_rules"
-			},
-			"player_one_name": {
-				"$ref": "/schemata/game#/definitions/player_one_name"
-			},
-			"player_two_name": {
-				"$ref": "/schemata/game#/definitions/player_two_name"
-			},
-			"updated_at": {
-				"$ref": "/schemata/game#/definitions/updated_at"
-			}
+	"properties": {
+		"created_at": {
+			"$ref": "/schemata/game#/definitions/created_at"
 		},
-		"id": "schemata/game"
+		"id": {
+			"$ref": "/schemata/game#/definitions/id"
+		},
+		"name": {
+			"$ref": "/schemata/game#/definitions/name"
+		},
+		"game_rules": {
+			"$ref": "/schemata/game#/definitions/game_rules"
+		},
+		"player_one_name": {
+			"$ref": "/schemata/game#/definitions/player_one_name"
+		},
+		"player_two_name": {
+			"$ref": "/schemata/game#/definitions/player_two_name"
+		},
+		"updated_at": {
+			"$ref": "/schemata/game#/definitions/updated_at"
+		}
+	},
+	"id": "schemata/game"
 }
