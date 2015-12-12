@@ -9,7 +9,7 @@ RM=rm
 PANDOC=pandoc
 PRMD=prmd
 
-.PHONY: all clean docs opendocs test
+.PHONY: all clean docs open-docs test
 
 all: docs
 
@@ -37,7 +37,7 @@ $(SCHEMA_HTML): $(SCHEMA_MD)
 		--output $@ \
 		$<
 
-opendocs: $(SCHEMA_HTML)
+open-docs: $(SCHEMA_HTML)
 	open $<
 
 

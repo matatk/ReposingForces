@@ -26,26 +26,26 @@
 			"example": "double-chess960"
 		},
 		"player_one_name": {
-			"description": "The player one's name",
+			"description": "Player one's name",
 			"example": "Alice",
 			"readOnly": true,
 			"type": "string"
 		},
 		"player_one_email": {
-			"description": "The player one's email address",
+			"description": "Player one's email address",
 			"readOnly": true,
 			"type": "string",
 			"format": "email",
 			"example": "alice@chess.io"
 		},
 		"player_two_name": {
-			"description": "The player two's name",
+			"description": "Player two's name",
 			"example": "Bob",
 			"readOnly": true,
 			"type": "string"
 		},
 		"player_two_email": {
-			"description": "The player two's email address",
+			"description": "Player two's email address",
 			"readOnly": true,
 			"type": "string",
 			"format": "email",
@@ -53,7 +53,7 @@
 		},
 		"name": {
 			"description": "Name chosen for this game",
-			"example": "Alice and Bob: The Grudge Match",
+			"example": "Alice vs Bob: The Grudge",
 			"readOnly": true,
 			"type": "string"
 		},
@@ -68,6 +68,12 @@
 			"example": "2012-01-01T12:00:00Z",
 			"format": "date-time",
 			"type": "string"
+		},
+		"access_token": {
+			"description": "A randomly-generated (by the server) token that players should be given to enable them to access the game itself",
+			"example": "ga0042",
+			"type": "string",
+			"pattern": "^ga[0-9]{4}$"
 		}
 	},
 
@@ -98,52 +104,57 @@
 		},
 		"updated_at": {
 			"$ref": "/schemata/game#/definitions/updated_at"
+		},
+		"access_token": {
+			"$ref": "/schemata/game#/definitions/access_token"
 		}
 	},
 
-	"links": [{
-		"title": "Create",
-		"description": "Create a new game",
-		"href": "/games",
-		"method": "POST",
-		"rel": "create",
-		"schema": {
-			"properties": {
-				"name": {
-					"$ref": "/schemata/game#/definitions/name"
+	"links": [
+		{
+			"title": "Create",
+			"description": "Create a new game.",
+			"href": "/games",
+			"method": "POST",
+			"rel": "create",
+			"schema": {
+				"type":	"object",
+				"properties": {
+					"name": {
+						"$ref": "/schemata/game#/definitions/name"
+					},
+					"player_one_name": {
+						"$ref": "/schemata/game#/definitions/player_one_name"
+					},
+					"player_one_email": {
+						"$ref": "/schemata/game#/definitions/player_one_email"
+					},
+					"player_two_name": {
+						"$ref": "/schemata/game#/definitions/player_two_name"
+					},
+					"player_two_email": {
+						"$ref": "/schemata/game#/definitions/player_two_email"
+					},
+					"game_type": {
+						"$ref": "/schemata/game#/definitions/game_type"
+					}
 				},
-				"player_one_name": {
-					"$ref": "/schemata/game#/definitions/player_one_name"
-				},
-				"player_one_email": {
-					"$ref": "/schemata/game#/definitions/player_one_email"
-				},
-				"player_two_name": {
-					"$ref": "/schemata/game#/definitions/player_two_name"
-				},
-				"player_two_email": {
-					"$ref": "/schemata/game#/definitions/player_two_email"
-				},
-				"game_type": {
-					"$ref": "/schemata/game#/definitions/game_type"
-				}
-			},
-			"type":	"object",
-			"required": [
-				"name",
-				"player_one_name",
-				"player_one_email",
-				"player_two_name",
-				"player_two_email",
-				"game_type"
-			]
+				"required": [
+					"name",
+					"player_one_name",
+					"player_one_email",
+					"player_two_name",
+					"player_two_email",
+					"game_type"
+				]
+			}
+		},
+		{
+			"title": "Info",
+			"description": "Info for existing game.",
+			"href": "/games/{(%2Fschemata%2Fgame%23%2Fdefinitions%2Fidentity)}?access={(%2Fschemata%2Fgame%23%2Fdefinitions%2Faccess_token)}",
+			"method": "GET",
+			"rel": "self"
 		}
-	},
-	{
-		"title": "Info",
-		"description": "Info for existing game",
-		"href": "/games/{(%2Fschemata%2Fgame%23%2Fdefinitions%2Fidentity)}",
-		"method": "GET",
-		"rel": "self"
-	}]
+	]
 }

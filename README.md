@@ -1,19 +1,17 @@
 ReposingForces
 ==============
 
-For now, the version of prmd that you need must be compiled from source
-from [the prmd repo](https://github.com/interagent/prmd).
+A Chess API (and, later, web site) for playing with friends via web and
+email. Almost certainly wheel-reinventing, but this is for personal
+learning, and I've also not come across many Chess960 'digital
+correspondence chess' services.
 
-1.  Get the prmd code.
-2.  `rake build`
-3.  `cd pkg`
-4.  `gem install prmd` (this will be picked up from the file in the
-    current directory)
+-   `make`, `make all` or `make docs` will build everything (presently
+    only the docs).
+-   `make open-docs` will open the docs in your default browser
+    after building.
 
-Then you can use any of the documentation targets on this code...
-
--   `make`/`make all|docs` will build everything (presently only the
-    docs).
--   `make opendocs` will open the docs in your default browser after
-    building.
-
+The name is a pun on
+[REST](https://en.wikipedia.org/wiki/Representational_state_transfer)
+and [Half-Life's 'Opposing Force' expansion
+pack](https://en.wikipedia.org/wiki/Half-Life:_Opposing_Force).

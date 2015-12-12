@@ -19,25 +19,22 @@ td {
 	border: 1px solid green;
 }
 
-h1,
-h2,
-h3 {
+h1, h2, h3 {
 	padding: 0.5em;
 }
-h1,
-h2 {
+
+h1, h2 {
 	background-color: #9f9;
 }
+
 h3 {
 	background-color: #cfc;
 }
 
-/* De-uglify pandoc output */
-h2 a,
-h3 a,
-h4 a,
-h5 a,
-h6 a {
-	color: black;
-	text-decoration: none;
+h4 {
+	margin-bottom: 0.25em;
+}
+
+pre.json, pre.bash {
+	margin: 0;
 }
