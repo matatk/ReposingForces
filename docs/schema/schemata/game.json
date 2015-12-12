@@ -1,169 +1,149 @@
 {
 	"$schema": "http://json-schema.org/draft-04/hyper-schema",
-	"title": "FIXME - Game",
-	"description": "FIXME",
+
+	"id": "schemata/game",
+	"title": "Game",
+	"description": "Represents a game of Chess.  Note that a game may have more than one 'round' if the rules require it.",
 	"stability": "prototype",
 	"strictProperties": true,
-	"type": [
-		"object"
-	],
+	"type": "object",
+
 	"definitions": {
+		"identity": {
+			"$ref": "/schemata/game#/definitions/id"
+		},
 		"id": {
-			"description": "unique identifier of game",
-			"example": "01234567-89ab-cdef-0123-456789abcdef",
+			"description": "Unique identifier of game",
+			"example": 42,
 			"readOnly": true,
-			"format": "uuid",
-			"type": [
-				"string"
-			]
+			"type": "integer"
+		},
+		"game_type": {
+			"description": "The game rules in use",
+			"readOnly": true,
+			"type": "string",
+			"enum": ["chess", "chess960", "double-chess960"],
+			"example": "double-chess960"
 		},
 		"player_one_name": {
-			"description": "player one's name",
-			"example": "Player One",
+			"description": "The player one's name",
+			"example": "Alice",
 			"readOnly": true,
-			"type": [
-				"string"
-			]
+			"type": "string"
+		},
+		"player_one_email": {
+			"description": "The player one's email address",
+			"readOnly": true,
+			"type": "string",
+			"format": "email",
+			"example": "alice@chess.io"
 		},
 		"player_two_name": {
-			"description": "player two's name",
-			"example": "Player Two",
+			"description": "The player two's name",
+			"example": "Bob",
 			"readOnly": true,
-			"type": [
-				"string"
-			]
+			"type": "string"
 		},
-		"game_rules": {
-			"description": "the rules in use",
-			"example": "960",
+		"player_two_email": {
+			"description": "The player two's email address",
 			"readOnly": true,
-			"type": [
-				"string"
-			]
+			"type": "string",
+			"format": "email",
+			"example": "bob@chess.io"
 		},
 		"name": {
-			"description": "unique name of game",
-			"example": "name",
+			"description": "Name chosen for this game",
+			"example": "Alice and Bob: The Grudge Match",
 			"readOnly": true,
-			"type": [
-				"string"
-			]
-		},
-		"identity": {
-			"anyOf": [
-				{
-					"$ref": "/schemata/game#/definitions/id"
-				},
-				{
-					"$ref": "/schemata/game#/definitions/name"
-				}
-			]
+			"type": "string"
 		},
 		"created_at": {
-			"description": "when game was created",
+			"description": "When game was created",
 			"example": "2012-01-01T12:00:00Z",
 			"format": "date-time",
-			"type": [
-				"string"
-			]
+			"type": "string"
 		},
 		"updated_at": {
-			"description": "when game was updated",
+			"description": "When game was updated",
 			"example": "2012-01-01T12:00:00Z",
 			"format": "date-time",
-			"type": [
-				"string"
-			]
+			"type": "string"
 		}
 	},
-	"links": [
-		{
-			"description": "Create a new game.",
-			"href": "/games",
-			"method": "POST",
-			"rel": "create",
-			"schema": {
-				"properties": {
-					"name": {
-						"$ref": "/schemata/game#/definitions/name"
-					},
-					"game_rules": {
-						"$ref": "/schemata/game#/definitions/game_rules"
-					},
-					"player_one_name": {
-						"$ref": "/schemata/game#/definitions/player_one_name"
-					},
-					"player_two_name": {
-						"$ref": "/schemata/game#/definitions/player_two_name"
-					}
-				},
-				"type": [
-					"object"
-				],
-				"required": [
-					"game_rules"
-				]
-			},
-			"title": "Create"
-		},
-		{
-			"description": "Delete an existing game.",
-			"href": "/games/{(%2Fschemata%2Fgame%23%2Fdefinitions%2Fidentity)}",
-			"method": "DELETE",
-			"rel": "destroy",
-			"title": "Delete"
-		},
-		{
-			"description": "Info for existing game.",
-			"href": "/games/{(%2Fschemata%2Fgame%23%2Fdefinitions%2Fidentity)}",
-			"method": "GET",
-			"rel": "self",
-			"title": "Info"
-		},
-		{
-			"description": "List existing games.",
-			"href": "/games",
-			"method": "GET",
-			"rel": "instances",
-			"title": "List"
-		},
-		{
-			"description": "Update an existing game.",
-			"href": "/games/{(%2Fschemata%2Fgame%23%2Fdefinitions%2Fidentity)}",
-			"method": "PATCH",
-			"rel": "update",
-			"schema": {
-				"properties": {
-				},
-				"type": [
-					"object"
-				]
-			},
-			"title": "Update"
-		}
-	],
+
 	"properties": {
-		"created_at": {
-			"$ref": "/schemata/game#/definitions/created_at"
-		},
 		"id": {
 			"$ref": "/schemata/game#/definitions/id"
 		},
 		"name": {
 			"$ref": "/schemata/game#/definitions/name"
 		},
-		"game_rules": {
-			"$ref": "/schemata/game#/definitions/game_rules"
+		"game_type": {
+			"$ref": "/schemata/game#/definitions/game_type"
 		},
 		"player_one_name": {
 			"$ref": "/schemata/game#/definitions/player_one_name"
 		},
+		"player_one_email": {
+			"$ref": "/schemata/game#/definitions/player_one_email"
+		},
 		"player_two_name": {
 			"$ref": "/schemata/game#/definitions/player_two_name"
+		},
+		"player_two_email": {
+			"$ref": "/schemata/game#/definitions/player_two_email"
+		},
+		"created_at": {
+			"$ref": "/schemata/game#/definitions/created_at"
 		},
 		"updated_at": {
 			"$ref": "/schemata/game#/definitions/updated_at"
 		}
 	},
-	"id": "schemata/game"
+
+	"links": [{
+		"title": "Create",
+		"description": "Create a new game",
+		"href": "/games",
+		"method": "POST",
+		"rel": "create",
+		"schema": {
+			"properties": {
+				"name": {
+					"$ref": "/schemata/game#/definitions/name"
+				},
+				"player_one_name": {
+					"$ref": "/schemata/game#/definitions/player_one_name"
+				},
+				"player_one_email": {
+					"$ref": "/schemata/game#/definitions/player_one_email"
+				},
+				"player_two_name": {
+					"$ref": "/schemata/game#/definitions/player_two_name"
+				},
+				"player_two_email": {
+					"$ref": "/schemata/game#/definitions/player_two_email"
+				},
+				"game_type": {
+					"$ref": "/schemata/game#/definitions/game_type"
+				}
+			},
+			"type":	"object",
+			"required": [
+				"name",
+				"player_one_name",
+				"player_one_email",
+				"player_two_name",
+				"player_two_email",
+				"game_type"
+			]
+		}
+	},
+	{
+		"title": "Info",
+		"description": "Info for existing game",
+		"href": "/games/{(%2Fschemata%2Fgame%23%2Fdefinitions%2Fidentity)}",
+		"method": "GET",
+		"rel": "self"
+	}]
 }

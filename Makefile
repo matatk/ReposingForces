@@ -22,7 +22,7 @@ docs: $(SCHEMA_HTML)
 
 $(SCHEMA_COMBINED_JSON): $(SCHEMA_DIR)/meta.json $(SCHEMATA_DIR)/*
 	$(PRMD) combine --meta $^ > $@
-	$(PRMD) verify $@
+	$(PRMD) verify $@ > /dev/null
 
 $(SCHEMA_MD): $(SCHEMA_DIR)/overview.md $(SCHEMA_COMBINED_JSON)
 	$(PRMD) doc --prepend $^ > $(SCHEMA_MD)
