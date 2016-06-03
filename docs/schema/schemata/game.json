@@ -14,9 +14,9 @@
 		},
 		"id": {
 			"description": "Unique identifier of game",
-			"example": 42,
 			"readOnly": true,
-			"type": "integer"
+			"type": "integer",
+			"example": 42
 		},
 		"game_type": {
 			"description": "The game rules in use",
@@ -27,9 +27,9 @@
 		},
 		"player_one_name": {
 			"description": "Player one's name",
-			"example": "Alice",
 			"readOnly": true,
-			"type": "string"
+			"type": "string",
+			"example": "Alice"
 		},
 		"player_one_email": {
 			"description": "Player one's email address",
@@ -40,9 +40,9 @@
 		},
 		"player_two_name": {
 			"description": "Player two's name",
-			"example": "Bob",
 			"readOnly": true,
-			"type": "string"
+			"type": "string",
+			"example": "Bob"
 		},
 		"player_two_email": {
 			"description": "Player two's email address",
@@ -53,27 +53,28 @@
 		},
 		"name": {
 			"description": "Name chosen for this game",
-			"example": "Alice vs Bob: The Grudge",
 			"readOnly": true,
-			"type": "string"
+			"type": "string",
+			"example": "Alice vs Bob: The Grudge"
 		},
 		"created_at": {
 			"description": "When game was created",
-			"example": "2012-01-01T12:00:00Z",
+			"readOnly": true,
+			"type": "string",
 			"format": "date-time",
-			"type": "string"
+			"example": "2012-01-01T12:00:00Z"
 		},
 		"updated_at": {
 			"description": "When game was updated",
-			"example": "2012-01-01T12:00:00Z",
+			"type": "string",
 			"format": "date-time",
-			"type": "string"
+			"example": "2012-01-01T12:00:42Z"
 		},
 		"access_token": {
 			"description": "A randomly-generated (by the server) token that players should be given to enable them to access the game itself",
-			"example": "ga0042",
 			"type": "string",
-			"pattern": "^ga[0-9]{4}$"
+			"pattern": "^[0-9a-z]{8}$",
+			"example": "0d63vkm2"
 		}
 	},
 
@@ -150,11 +151,64 @@
 			}
 		},
 		{
-			"title": "Info",
-			"description": "Info for existing game.",
+			"title": "Public Info",
+			"description": "Details of an existing game. If the access token is not given, then the players' email addresses are omitted.",
+			"href": "/games/{(%2Fschemata%2Fgame%23%2Fdefinitions%2Fidentity)}",
+			"method": "GET",
+			"rel": "self",
+			"targetSchema": {
+				"type":	"object",
+				"properties": {
+					"id": {
+						"$ref": "/schemata/game#/definitions/id"
+					},
+					"name": {
+						"$ref": "/schemata/game#/definitions/name"
+					},
+					"player_one_name": {
+						"$ref": "/schemata/game#/definitions/player_one_name"
+					},
+					"player_two_name": {
+						"$ref": "/schemata/game#/definitions/player_two_name"
+					},
+					"game_type": {
+						"$ref": "/schemata/game#/definitions/game_type"
+					}
+				}
+			}
+		},
+		{
+			"title": "Full Info",
+			"description": "Details of an existing game. If the access token is given, then all details are returned.",
 			"href": "/games/{(%2Fschemata%2Fgame%23%2Fdefinitions%2Fidentity)}?access={(%2Fschemata%2Fgame%23%2Fdefinitions%2Faccess_token)}",
 			"method": "GET",
-			"rel": "self"
+			"rel": "self",
+			"targetSchema": {
+				"type":	"object",
+				"properties": {
+					"id": {
+						"$ref": "/schemata/game#/definitions/id"
+					},
+					"name": {
+						"$ref": "/schemata/game#/definitions/name"
+					},
+					"player_one_name": {
+						"$ref": "/schemata/game#/definitions/player_one_name"
+					},
+					"player_one_email": {
+						"$ref": "/schemata/game#/definitions/player_one_email"
+					},
+					"player_two_name": {
+						"$ref": "/schemata/game#/definitions/player_two_name"
+					},
+					"player_two_email": {
+						"$ref": "/schemata/game#/definitions/player_two_email"
+					},
+					"game_type": {
+						"$ref": "/schemata/game#/definitions/game_type"
+					}
+				}
+			}
 		}
 	]
 }

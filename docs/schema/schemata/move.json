@@ -38,17 +38,21 @@
 				"properties": {
 					"move": {
 						"$ref": "/schemata/move#/definitions/move"
+					},
+					"access_token": {
+						"$ref": "/schemata/game#/definitions/access_token"
 					}
 				},
 				"required": [
-					"move"
+					"move",
+					"access_token"
 				]
 			}
 		},
 		{
 			"title":        "List",
-			"description":  "List existing moves.",
-			"href": "/games/{(%2Fschemata%2Fgame%23%2Fdefinitions%2Fidentity)}/moves?access={(%2Fschemata%2Fgame%23%2Fdefinitions%2Faccess_token)}",
+			"description":  "List existing moves (the access token is not required).",
+			"href": "/games/{(%2Fschemata%2Fgame%23%2Fdefinitions%2Fidentity)}/moves",
 			"method":       "GET",
 			"rel":          "instances"
 		}
