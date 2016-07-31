@@ -1,0 +1,11 @@
+#!/bin/bash
+if [ `git rev-parse --abbrev-ref HEAD` == "master" ]; then
+	GENERATED_DOCS='docs/schema/schema.html'
+	HOST_AT='schema/index.html'
+    git checkout gh-pages
+	cp $GENERATED_DOCS $HOST_AT
+    git add $HOST_AT
+    git commit -a -m "Synch generated docs to $HOST_AT in gh-pages"
+    # git push origin gh-pages
+    git checkout master
+fi
