@@ -1,12 +1,16 @@
 #!/bin/bash
 if [ `git rev-parse --abbrev-ref HEAD` == "master" ]; then
-	GENERATED_DOCS='docs/schema/schema.html'
-	HOST_AT='schema/index.html'
+	SCHEMA_DOCS='docs/schema/schema.html'
+	SCHEMA_CSS='docs/schema/schema.css'
+	HOST_AT='schema'
 	make docs || exit
-    git checkout gh-pages
-	cp $GENERATED_DOCS $HOST_AT
-    git add $HOST_AT
-    git commit -a -m "Synch generated docs to $HOST_AT in gh-pages"
-    # git push origin gh-pages
-    git checkout master
+	git checkout gh-pages
+	cp $SCHEMA_DOCS $HOST_AT/index.html  # not in git, so still in the tree
+	git checkout master -- $SCHEMA_CSS  # tracked by git, so need to check out
+	cp $SCHEMA_CSS $HOST_AT/
+	git rm --cached $SCHEMA_CSS  # so it doesn't get added
+	git add $HOST_AT
+	git commit -a -m "Synch generated docs (and CSS) to $HOST_AT in gh-pages"
+	# git push origin gh-pages
+	git checkout master
 fi
