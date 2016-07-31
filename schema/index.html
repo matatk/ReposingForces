@@ -1,0 +1,390 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="generator" content="pandoc">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+  <title>The ReposingForces API</title>
+  <style type="text/css">code{white-space: pre;}</style>
+  <style type="text/css">
+div.sourceCode { overflow-x: auto; }
+table.sourceCode, tr.sourceCode, td.lineNumbers, td.sourceCode {
+  margin: 0; padding: 0; vertical-align: baseline; border: none; }
+table.sourceCode { width: 100%; line-height: 100%; }
+td.lineNumbers { text-align: right; padding-right: 4px; padding-left: 4px; color: #aaaaaa; border-right: 1px solid #aaaaaa; }
+td.sourceCode { padding-left: 5px; }
+code > span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code > span.dt { color: #902000; } /* DataType */
+code > span.dv { color: #40a070; } /* DecVal */
+code > span.bn { color: #40a070; } /* BaseN */
+code > span.fl { color: #40a070; } /* Float */
+code > span.ch { color: #4070a0; } /* Char */
+code > span.st { color: #4070a0; } /* String */
+code > span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code > span.ot { color: #007020; } /* Other */
+code > span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code > span.fu { color: #06287e; } /* Function */
+code > span.er { color: #ff0000; font-weight: bold; } /* Error */
+code > span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+code > span.cn { color: #880000; } /* Constant */
+code > span.sc { color: #4070a0; } /* SpecialChar */
+code > span.vs { color: #4070a0; } /* VerbatimString */
+code > span.ss { color: #bb6688; } /* SpecialString */
+code > span.im { } /* Import */
+code > span.va { color: #19177c; } /* Variable */
+code > span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code > span.op { color: #666666; } /* Operator */
+code > span.bu { } /* BuiltIn */
+code > span.ex { } /* Extension */
+code > span.pp { color: #bc7a00; } /* Preprocessor */
+code > span.at { color: #7d9029; } /* Attribute */
+code > span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code > span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code > span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+  </style>
+  <link rel="stylesheet" href="schema.css">
+  <!--[if lt IE 9]>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv-printshiv.min.js"></script>
+  <![endif]-->
+</head>
+<body>
+<header>
+<h1 class="title">The ReposingForces API</h1>
+</header>
+<nav id="TOC">
+<ul>
+<li><a href="#game"><a name="resource-game">Game</a></a><ul>
+<li><a href="#attributes">Attributes</a></li>
+<li><a href="#game-create">Game Create</a></li>
+<li><a href="#game-public-info">Game Public Info</a></li>
+<li><a href="#game-full-info">Game Full Info</a></li>
+</ul></li>
+<li><a href="#move"><a name="resource-move">Move</a></a><ul>
+<li><a href="#attributes-1">Attributes</a></li>
+<li><a href="#move-add">Move Add</a></li>
+<li><a href="#move-list">Move List</a></li>
+</ul></li>
+</ul>
+</nav>
+<p>This is an API for Chess and variants such as <a href="https://en.wikipedia.org/wiki/Chess960">Chess960</a>. It is designed to be used by a client web site/app that actually presents UI and causes players to recieve an email when it's their turn to move.</p>
+<p>The name is a pun on <a href="https://en.wikipedia.org/wiki/Representational_state_transfer">REST</a> and <a href="https://en.wikipedia.org/wiki/Half-Life:_Opposing_Force">Half-Life's 'Opposing Force' expansion pack</a>.</p>
+<section id="game" class="level2">
+<h2><a name="resource-game">Game</a></h2>
+<p>Stability: <code>prototype</code></p>
+<p>Represents a game of Chess. Note that a game may have more than one 'round' if the rules require it.</p>
+<section id="attributes" class="level3">
+<h3>Attributes</h3>
+<table style="width:44%;">
+<colgroup>
+<col style="width: 11%" />
+<col style="width: 11%" />
+<col style="width: 11%" />
+<col style="width: 11%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+<th>Example</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><strong>access_token</strong></td>
+<td><em>string</em></td>
+<td>A randomly-generated (by the server) token that players should be given to enable them to access the game itself<br/> <strong>pattern:</strong> <code>^[0-9a-z]{8}$</code></td>
+<td><code>&quot;0d63vkm2&quot;</code></td>
+</tr>
+<tr class="even">
+<td><strong>created_at</strong></td>
+<td><em>date-time</em></td>
+<td>When game was created</td>
+<td><code>&quot;2012-01-01T12:00:00Z&quot;</code></td>
+</tr>
+<tr class="odd">
+<td><strong>game_type</strong></td>
+<td><em>string</em></td>
+<td>The game rules in use<br/> <strong>one of:</strong><code>&quot;chess&quot;</code> or <code>&quot;chess960&quot;</code> or <code>&quot;double-chess960&quot;</code></td>
+<td><code>&quot;double-chess960&quot;</code></td>
+</tr>
+<tr class="even">
+<td><strong>id</strong></td>
+<td><em>integer</em></td>
+<td>Unique identifier of game</td>
+<td><code>42</code></td>
+</tr>
+<tr class="odd">
+<td><strong>name</strong></td>
+<td><em>string</em></td>
+<td>Name chosen for this game</td>
+<td><code>&quot;Alice vs Bob: The Grudge&quot;</code></td>
+</tr>
+<tr class="even">
+<td><strong>player_one_email</strong></td>
+<td><em>email</em></td>
+<td>Player one's email address</td>
+<td><code>&quot;alice@chess.io&quot;</code></td>
+</tr>
+<tr class="odd">
+<td><strong>player_one_name</strong></td>
+<td><em>string</em></td>
+<td>Player one's name</td>
+<td><code>&quot;Alice&quot;</code></td>
+</tr>
+<tr class="even">
+<td><strong>player_two_email</strong></td>
+<td><em>email</em></td>
+<td>Player two's email address</td>
+<td><code>&quot;bob@chess.io&quot;</code></td>
+</tr>
+<tr class="odd">
+<td><strong>player_two_name</strong></td>
+<td><em>string</em></td>
+<td>Player two's name</td>
+<td><code>&quot;Bob&quot;</code></td>
+</tr>
+<tr class="even">
+<td><strong>updated_at</strong></td>
+<td><em>date-time</em></td>
+<td>When game was updated</td>
+<td><code>&quot;2012-01-01T12:00:42Z&quot;</code></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="game-create" class="level3">
+<h3>Game Create</h3>
+<p>Create a new game.</p>
+<pre><code>POST /games</code></pre>
+<section id="required-parameters" class="level4">
+<h4>Required Parameters</h4>
+<table style="width:44%;">
+<colgroup>
+<col style="width: 11%" />
+<col style="width: 11%" />
+<col style="width: 11%" />
+<col style="width: 11%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+<th>Example</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><strong>game_type</strong></td>
+<td><em>string</em></td>
+<td>The game rules in use<br/> <strong>one of:</strong><code>&quot;chess&quot;</code> or <code>&quot;chess960&quot;</code> or <code>&quot;double-chess960&quot;</code></td>
+<td><code>&quot;double-chess960&quot;</code></td>
+</tr>
+<tr class="even">
+<td><strong>name</strong></td>
+<td><em>string</em></td>
+<td>Name chosen for this game</td>
+<td><code>&quot;Alice vs Bob: The Grudge&quot;</code></td>
+</tr>
+<tr class="odd">
+<td><strong>player_one_email</strong></td>
+<td><em>email</em></td>
+<td>Player one's email address</td>
+<td><code>&quot;alice@chess.io&quot;</code></td>
+</tr>
+<tr class="even">
+<td><strong>player_one_name</strong></td>
+<td><em>string</em></td>
+<td>Player one's name</td>
+<td><code>&quot;Alice&quot;</code></td>
+</tr>
+<tr class="odd">
+<td><strong>player_two_email</strong></td>
+<td><em>email</em></td>
+<td>Player two's email address</td>
+<td><code>&quot;bob@chess.io&quot;</code></td>
+</tr>
+<tr class="even">
+<td><strong>player_two_name</strong></td>
+<td><em>string</em></td>
+<td>Player two's name</td>
+<td><code>&quot;Bob&quot;</code></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="curl-example" class="level4">
+<h4>Curl Example</h4>
+<div class="sourceCode"><pre class="sourceCode bash"><code class="sourceCode bash">$ <span class="kw">curl</span> -n -X POST https://reposingforces.herokuapp.com/games \
+  -d <span class="st">&#39;{</span>
+<span class="st">  &quot;name&quot;: &quot;Alice vs Bob: The Grudge&quot;,</span>
+<span class="st">  &quot;player_one_name&quot;: &quot;Alice&quot;,</span>
+<span class="st">  &quot;player_one_email&quot;: &quot;alice@chess.io&quot;,</span>
+<span class="st">  &quot;player_two_name&quot;: &quot;Bob&quot;,</span>
+<span class="st">  &quot;player_two_email&quot;: &quot;bob@chess.io&quot;,</span>
+<span class="st">  &quot;game_type&quot;: &quot;double-chess960&quot;</span>
+<span class="st">}&#39;</span> \
+  -H <span class="st">&quot;Content-Type: application/json&quot;</span></code></pre></div>
+</section>
+<section id="response-example" class="level4">
+<h4>Response Example</h4>
+<pre><code>HTTP/1.1 201 Created</code></pre>
+<div class="sourceCode"><pre class="sourceCode json"><code class="sourceCode json"><span class="fu">{</span>
+  <span class="dt">&quot;id&quot;</span><span class="fu">:</span> <span class="dv">42</span><span class="fu">,</span>
+  <span class="dt">&quot;name&quot;</span><span class="fu">:</span> <span class="st">&quot;Alice vs Bob: The Grudge&quot;</span><span class="fu">,</span>
+  <span class="dt">&quot;game_type&quot;</span><span class="fu">:</span> <span class="st">&quot;double-chess960&quot;</span><span class="fu">,</span>
+  <span class="dt">&quot;player_one_name&quot;</span><span class="fu">:</span> <span class="st">&quot;Alice&quot;</span><span class="fu">,</span>
+  <span class="dt">&quot;player_one_email&quot;</span><span class="fu">:</span> <span class="st">&quot;alice@chess.io&quot;</span><span class="fu">,</span>
+  <span class="dt">&quot;player_two_name&quot;</span><span class="fu">:</span> <span class="st">&quot;Bob&quot;</span><span class="fu">,</span>
+  <span class="dt">&quot;player_two_email&quot;</span><span class="fu">:</span> <span class="st">&quot;bob@chess.io&quot;</span><span class="fu">,</span>
+  <span class="dt">&quot;created_at&quot;</span><span class="fu">:</span> <span class="st">&quot;2012-01-01T12:00:00Z&quot;</span><span class="fu">,</span>
+  <span class="dt">&quot;updated_at&quot;</span><span class="fu">:</span> <span class="st">&quot;2012-01-01T12:00:42Z&quot;</span><span class="fu">,</span>
+  <span class="dt">&quot;access_token&quot;</span><span class="fu">:</span> <span class="st">&quot;0d63vkm2&quot;</span>
+<span class="fu">}</span></code></pre></div>
+</section>
+</section>
+<section id="game-public-info" class="level3">
+<h3>Game Public Info</h3>
+<p>Details of an existing game. If the access token is not given, then the players' email addresses are omitted.</p>
+<pre><code>GET /games/{game_id}</code></pre>
+<section id="curl-example-1" class="level4">
+<h4>Curl Example</h4>
+<div class="sourceCode"><pre class="sourceCode bash"><code class="sourceCode bash">$ <span class="kw">curl</span> -n https://reposingforces.herokuapp.com/games/<span class="ot">$GAME_ID</span></code></pre></div>
+</section>
+<section id="response-example-1" class="level4">
+<h4>Response Example</h4>
+<pre><code>HTTP/1.1 200 OK</code></pre>
+<div class="sourceCode"><pre class="sourceCode json"><code class="sourceCode json"><span class="fu">{</span>
+  <span class="dt">&quot;id&quot;</span><span class="fu">:</span> <span class="dv">42</span><span class="fu">,</span>
+  <span class="dt">&quot;name&quot;</span><span class="fu">:</span> <span class="st">&quot;Alice vs Bob: The Grudge&quot;</span><span class="fu">,</span>
+  <span class="dt">&quot;player_one_name&quot;</span><span class="fu">:</span> <span class="st">&quot;Alice&quot;</span><span class="fu">,</span>
+  <span class="dt">&quot;player_two_name&quot;</span><span class="fu">:</span> <span class="st">&quot;Bob&quot;</span><span class="fu">,</span>
+  <span class="dt">&quot;game_type&quot;</span><span class="fu">:</span> <span class="st">&quot;double-chess960&quot;</span>
+<span class="fu">}</span></code></pre></div>
+</section>
+</section>
+<section id="game-full-info" class="level3">
+<h3>Game Full Info</h3>
+<p>Details of an existing game. If the access token is given, then all details are returned.</p>
+<pre><code>GET /games/{game_id}?access={game_access_token}</code></pre>
+<section id="curl-example-2" class="level4">
+<h4>Curl Example</h4>
+<div class="sourceCode"><pre class="sourceCode bash"><code class="sourceCode bash">$ <span class="kw">curl</span> -n https://reposingforces.herokuapp.com/games/<span class="ot">$GAME_ID</span>?access=<span class="ot">$GAME_ACCESS_TOKEN</span></code></pre></div>
+</section>
+<section id="response-example-2" class="level4">
+<h4>Response Example</h4>
+<pre><code>HTTP/1.1 200 OK</code></pre>
+<div class="sourceCode"><pre class="sourceCode json"><code class="sourceCode json"><span class="fu">{</span>
+  <span class="dt">&quot;id&quot;</span><span class="fu">:</span> <span class="dv">42</span><span class="fu">,</span>
+  <span class="dt">&quot;name&quot;</span><span class="fu">:</span> <span class="st">&quot;Alice vs Bob: The Grudge&quot;</span><span class="fu">,</span>
+  <span class="dt">&quot;player_one_name&quot;</span><span class="fu">:</span> <span class="st">&quot;Alice&quot;</span><span class="fu">,</span>
+  <span class="dt">&quot;player_one_email&quot;</span><span class="fu">:</span> <span class="st">&quot;alice@chess.io&quot;</span><span class="fu">,</span>
+  <span class="dt">&quot;player_two_name&quot;</span><span class="fu">:</span> <span class="st">&quot;Bob&quot;</span><span class="fu">,</span>
+  <span class="dt">&quot;player_two_email&quot;</span><span class="fu">:</span> <span class="st">&quot;bob@chess.io&quot;</span><span class="fu">,</span>
+  <span class="dt">&quot;game_type&quot;</span><span class="fu">:</span> <span class="st">&quot;double-chess960&quot;</span>
+<span class="fu">}</span></code></pre></div>
+</section>
+</section>
+</section>
+<section id="move" class="level2">
+<h2><a name="resource-move">Move</a></h2>
+<p>Stability: <code>prototype</code></p>
+<p>A move/the moves in a game.</p>
+<section id="attributes-1" class="level3">
+<h3>Attributes</h3>
+<table>
+<thead>
+<tr class="header">
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+<th>Example</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><strong>move</strong></td>
+<td><em>string</em></td>
+<td>The move</td>
+<td><code>&quot;e4&quot;</code></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="move-add" class="level3">
+<h3>Move Add</h3>
+<p>Make a move.</p>
+<pre><code>POST /games/{game_id}/moves</code></pre>
+<section id="required-parameters-1" class="level4">
+<h4>Required Parameters</h4>
+<table style="width:44%;">
+<colgroup>
+<col style="width: 11%" />
+<col style="width: 11%" />
+<col style="width: 11%" />
+<col style="width: 11%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+<th>Example</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><strong>access_token</strong></td>
+<td><em>string</em></td>
+<td>A randomly-generated (by the server) token that players should be given to enable them to access the game itself<br/> <strong>pattern:</strong> <code>^[0-9a-z]{8}$</code></td>
+<td><code>&quot;0d63vkm2&quot;</code></td>
+</tr>
+<tr class="even">
+<td><strong>move</strong></td>
+<td><em>string</em></td>
+<td>The move</td>
+<td><code>&quot;e4&quot;</code></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="curl-example-3" class="level4">
+<h4>Curl Example</h4>
+<div class="sourceCode"><pre class="sourceCode bash"><code class="sourceCode bash">$ <span class="kw">curl</span> -n -X POST https://reposingforces.herokuapp.com/games/<span class="ot">$GAME_ID</span>/moves \
+  -d <span class="st">&#39;{</span>
+<span class="st">  &quot;move&quot;: &quot;e4&quot;,</span>
+<span class="st">  &quot;access_token&quot;: &quot;0d63vkm2&quot;</span>
+<span class="st">}&#39;</span> \
+  -H <span class="st">&quot;Content-Type: application/json&quot;</span></code></pre></div>
+</section>
+<section id="response-example-3" class="level4">
+<h4>Response Example</h4>
+<pre><code>HTTP/1.1 201 Created</code></pre>
+<div class="sourceCode"><pre class="sourceCode json"><code class="sourceCode json"><span class="fu">{</span>
+  <span class="dt">&quot;move&quot;</span><span class="fu">:</span> <span class="st">&quot;e4&quot;</span>
+<span class="fu">}</span></code></pre></div>
+</section>
+</section>
+<section id="move-list" class="level3">
+<h3>Move List</h3>
+<p>List existing moves (the access token is not required).</p>
+<pre><code>GET /games/{game_id}/moves</code></pre>
+<section id="curl-example-4" class="level4">
+<h4>Curl Example</h4>
+<div class="sourceCode"><pre class="sourceCode bash"><code class="sourceCode bash">$ <span class="kw">curl</span> -n https://reposingforces.herokuapp.com/games/<span class="ot">$GAME_ID</span>/moves</code></pre></div>
+</section>
+<section id="response-example-4" class="level4">
+<h4>Response Example</h4>
+<pre><code>HTTP/1.1 200 OK</code></pre>
+<div class="sourceCode"><pre class="sourceCode json"><code class="sourceCode json"><span class="ot">[</span>
+  <span class="fu">{</span>
+    <span class="dt">&quot;move&quot;</span><span class="fu">:</span> <span class="st">&quot;e4&quot;</span>
+  <span class="fu">}</span>
+<span class="ot">]</span></code></pre></div>
+</section>
+</section>
+</section>
+</body>
+</html>
