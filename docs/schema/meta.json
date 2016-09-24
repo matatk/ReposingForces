@@ -1,9 +1,0 @@
-{
-	"description": "The ReposingForces API",
-	"id": "reposingforces",
-	"links": [{
-		"href": "https://reposingforces.herokuapp.com",
-		"rel": "self"
-	}],
-	"title": "ReposingForces"
-}
