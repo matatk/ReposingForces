@@ -1,0 +1,57 @@
+#%RAML 1.0
+title: Reposing Forces
+version: v1
+baseUri: https://reposingforces.herokuapp.com/{version}
+protocols: [ HTTPS ]
+mediaType: application/json
+documentation:
+  - title: Overview
+    content: |
+      This is an API for Chess and variants such as [Chess960](https://en.wikipedia.org/wiki/Chess960). It is designed to be used by a client web site/app that actually presents UI and causes players to recieve an email when it's their turn to move.
+
+      The name is a pun on [REST](https://en.wikipedia.org/wiki/Representational_state_transfer) and [Half-Life's 'Opposing Force' expansion pack](https://en.wikipedia.org/wiki/Half-Life:_Opposing_Force).
+
+types:
+  Game:
+    type: object
+    properties:
+      id:
+        type: integer
+        example: 42
+      game_type:
+        type: string
+        example: 'chess960'
+        required: true
+      player_one_name:
+        type: string
+        example: 'Alice'
+        required: true
+      player_two_name:
+        type: string
+        example: 'Bob'
+        required: true
+
+/games:
+  get:
+    description: Retrieve list of all games
+  post:
+    description: Create a new game
+    body:
+      application/json:
+        type: Game
+  /{game_id}:
+    get:
+      description: Retrieve a specific game
+      responses:
+        200:
+          body:
+            application/json:
+              type: Game
+        404:
+          body:
+            application/json:
+              example: |
+                {"message": "Game not found"}
+    /moves:
+      get:
+        description: Retrieve list of moves for specific game
