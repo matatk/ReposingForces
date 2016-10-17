@@ -1,9 +1,13 @@
 DOC_NAME=reposingforces
+RAML2HTML=node_modules/.bin/raml2html
 
 $(DOC_NAME).html: $(DOC_NAME).raml
-	raml2html $< > $@ || (rm $@ && exit 42)
+	$(RAML2HTML) $< > $@ || (rm $@ && exit 42)
 	# if there was an error, the 0-byte HTML file created is removed,
 	# and the error effectively propogated.
 
+open: $(DOC_NAME).html
+	open $<
+
 clean:
-	rm $(DOC_NAME).html
+	-rm $(DOC_NAME).html
